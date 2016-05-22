@@ -8,20 +8,20 @@ namespace BankA
 {
     public class BankAOps : IBankAOps
     {
-        public static string connString = ConfigurationManager.ConnectionStrings["BankA"].ToString();
+      //  public static string connString = ConfigurationManager.ConnectionStrings["BankA"].ToString();
 
         [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = false)]
         public void Deposit(int acct, double amount)
         {
-            SQLiteConnection conn = new SQLiteConnection(connString);
+            SQLiteConnection conn = new SQLiteConnection("data source=databaseFile.db3");
             int rows;
             try
             {
                 conn.Open();
                 string sqlcmd = "update Accounts set Balance=Balance+" + amount.ToString("F2") +
-                           "where AccNr=" + acct + ";";
-                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-                rows = cmd.ExecuteNonQuery();
+                           " where AccNr=" + acct + ";";
+                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);                
+                rows = Convert.ToInt32(cmd.ExecuteNonQuery().ToString());
                 if (rows == 1)
                     OperationContext.Current.SetTransactionComplete();
             }
@@ -34,15 +34,15 @@ namespace BankA
         [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = false)]
         public void Withdraw(int acct, double amount)
         {
-            SQLiteConnection conn = new SQLiteConnection(connString);
+            SQLiteConnection conn = new SQLiteConnection("data source=databaseFile.db3");
             int rows;
             try
             {
                 conn.Open();
                 string sqlcmd = "update Accounts set Balance=Balance-" + amount.ToString("F2") +
-                           "where AccNr=" + acct + ";";
+                           " where AccNr=" + acct + ";";
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-                rows = cmd.ExecuteNonQuery();
+                rows = Convert.ToInt32(cmd.ExecuteNonQuery().ToString());
                 if (rows == 1)
                     OperationContext.Current.SetTransactionComplete();
             }
@@ -54,14 +54,15 @@ namespace BankA
 
         public double GetBalance(int acct)
         {
-            SQLiteConnection conn = new SQLiteConnection(connString);
+            SQLiteConnection conn = new SQLiteConnection("data source=databaseFile.db3");
             double amount;
             try
             {
                 conn.Open();
-                string sqlcmd = "select Balance from Accounts where AccNr=" + acct.ToString() + ";";
+                string sqlcmd = "select Balance from Accounts where AccNr= 121;";
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-                amount = Convert.ToDouble((decimal)cmd.ExecuteScalar());
+                amount = Convert.ToDouble(cmd.ExecuteScalar().ToString());
+                
             }
             catch
             {
