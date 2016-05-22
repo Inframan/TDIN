@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b303c620-b98c-4558-b543-359e1532479e" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/BankA/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="BankAOps1.wsdl" MetadataType="Wsdl" ID="c0fca5cd-02eb-467d-94e1-837e4a6afc31" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BankA/?wsdl" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="01ce1e48-4e48-431f-bb0d-1e037ac0b285" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BankA/?disco" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="182e4616-549f-49aa-a13e-8ce2a495a69f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BankA/?xsd=xsd0" />
+    <MetadataFile FileName="item21.xsd" MetadataType="Schema" ID="3adeaa1e-438e-4252-be29-9ffb4a35a44f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/BankA/?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
