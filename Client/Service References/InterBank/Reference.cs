@@ -15,13 +15,13 @@ namespace Client.InterBank {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="InterBank.IInterBankOps", SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IInterBankOps {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/TransferAtoB", ReplyAction="http://tempuri.org/IInterBankOps/TransferAtoBResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/PurchaseStock", ReplyAction= "http://tempuri.org/IInterBankOps/PurchaseStockResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void TransferAtoB(int acctA, int acctB, double amount);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/TransferBtoA", ReplyAction="http://tempuri.org/IInterBankOps/TransferBtoAResponse")]
+        void PurchaseStock(string company, double amount);
+
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/SellStock", ReplyAction= "http://tempuri.org/IInterBankOps/SellStockResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void TransferBtoA(int acctB, int acctA, double amount);
+        void SellStock(string company, double amount);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -51,12 +51,12 @@ namespace Client.InterBank {
                 base(binding, remoteAddress) {
         }
         
-        public void TransferAtoB(int acctA, int acctB, double amount) {
-            base.Channel.TransferAtoB(acctA, acctB, amount);
+        public void PurchaseStock(string company, double amount) {
+            base.Channel.PurchaseStock(company, amount);
         }
         
-        public void TransferBtoA(int acctB, int acctA, double amount) {
-            base.Channel.TransferBtoA(acctB, acctA, amount);
+        public void SellStock(string company, double amount) {
+            base.Channel.SellStock(company, amount);
         }
     }
 }

@@ -7,25 +7,19 @@ using Client.BankB;
 namespace Client {
   class Program {
     static void Main(string[] args) {
-      int acctA = 121, acctB = 1004;
+      string company = "Apple";
       double amount = 80.00;
       
       InterBankOpsClient proxy = new InterBankOpsClient();
-      BankAOpsClient bankAProxy = new BankAOpsClient();
-      BankBOpsClient bankBProxy = new BankBOpsClient();
-      Console.WriteLine("Before: BankA balance = {0:F2}  BankB balance = {1:F2}",
-                        bankAProxy.GetBalance(acctA), bankBProxy.GetBalance(acctB));
-      Console.WriteLine("Doing a transfer (B to A) of {0:F2}", amount);
+            //    Console.WriteLine("Before: BankA balance = {0:F2}  BankB balance = {1:F2}",  bankAProxy.GetBalance(acctA), bankBProxy.GetBalance(acctB));
+            Console.WriteLine("Purchasing: " + company+ " whith: " + amount.ToString("F2"));
       try {
-        proxy.TransferBtoA(acctB, acctA, amount);
+        proxy.PurchaseStock(company, amount);
       }
       catch (Exception ex) {
         Console.WriteLine("Transaction Aborted: " + ex.Message);
       }
-      Console.WriteLine("After: BankA balance = {0:F2}  BankB balance = {1:F2}",
-                        bankAProxy.GetBalance(acctA), bankBProxy.GetBalance(acctB));
-      bankBProxy.Close();
-      bankAProxy.Close();
+      //Console.WriteLine("After: BankA balance = {0:F2}  BankB balance = {1:F2}",                        bankAProxy.GetBalance(acctA), bankBProxy.GetBalance(acctB));
       if (proxy.State == CommunicationState.Opened)
         proxy.Close();
       Console.WriteLine("Press <Enter> to terminate.");

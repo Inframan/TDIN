@@ -6,7 +6,7 @@ namespace Supervisor
     public class SupervisorOps : ISupervisorOps
     {
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void PurhcaseStock(string company, double amount)
+        public void PurchaseStock(string company, double amount)
         {
             Console.WriteLine("Purchasing: " + company + " for: " + amount);
         }

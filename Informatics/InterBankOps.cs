@@ -11,10 +11,11 @@ namespace InterBank
         SupervisorOpsClient supervisor = new SupervisorOpsClient();
 
         [OperationBehavior(TransactionScopeRequired = true)]
-        void IInterBankOps.PurhcaseStock(string company, double amount)
+        void IInterBankOps.PurchaseStock(string company, double amount)
         {
             //string message = String.Format("Transfer of {0:F2} from A{1} to B{2}", amount, acctA, acctB);
-            supervisor.PurhcaseStock(company, amount);
+            Console.WriteLine("Sucucessu!");
+            supervisor.PurchaseStock(company, amount);
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]

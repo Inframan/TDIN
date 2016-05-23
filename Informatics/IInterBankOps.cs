@@ -7,7 +7,7 @@ namespace InterBank {
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]
-    void PurhcaseStock(string company, double amount);
+    void PurchaseStock(string company, double amount);
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]

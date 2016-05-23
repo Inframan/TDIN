@@ -9,7 +9,7 @@ namespace Supervisor
 
         [OperationContract(IsOneWay = true)]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        void PurhcaseStock(string company, double amount);
+        void PurchaseStock(string company, double amount);
 
 
         [OperationContract(IsOneWay = true)]
