@@ -7,10 +7,10 @@ namespace InterBank {
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]
-    void TransferAtoB(int acctA, int acctB, double amount);
+    void PurhcaseStock(string company, double amount);
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]
-    void TransferBtoA(int acctB, int acctA, double amount);
-  }
+    void SellStock(string company, double amount);
+    }
 }

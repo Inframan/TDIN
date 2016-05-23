@@ -15,8 +15,11 @@ namespace Server.Supervisor {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Supervisor.ISupervisorOps")]
     public interface ISupervisorOps {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ISupervisorOps/ReportToSupervisor")]
-        void ReportToSupervisor(string message);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ISupervisorOps/PurchaseStock")]
+        void PurhcaseStock(string company, double amount);
+
+        [System.ServiceModel.OperationContractAttribute(IsOneWay = true, Action = "http://tempuri.org/ISupervisorOps/SellStock")]
+        void SellStock(string company, double amount);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -46,8 +49,13 @@ namespace Server.Supervisor {
                 base(binding, remoteAddress) {
         }
         
-        public void ReportToSupervisor(string message) {
-            base.Channel.ReportToSupervisor(message);
+        public void PurhcaseStock(string company, double amount) {
+            base.Channel.PurhcaseStock(company,amount);
+        }
+
+        public void SellStock(string company, double amount)
+        {
+            base.Channel.PurhcaseStock(company, amount);
         }
     }
 }
