@@ -1,0 +1,48 @@
+PRAGMA foreign_keys = ON;
+
+drop table if exists `client`;
+create table `client`(
+	id integer primary key AUTOINCREMENT,
+	name varchar(255),
+	email varchar(255) not null unique
+);
+
+drop table if exists `company`;
+create table `company`(
+	id integer primary key AUTOINCREMENT,
+	name varchar(255) not null,
+	value real not null,
+	quantity integer not null
+);
+
+drop table if exists `orders`;
+create table `orders`(
+	id integer primary key AUTOINCREMENT,
+	quantity int not null,
+	request_date datetime,
+	execution_value float,
+	execution_date datetime,
+	company_id int not null,
+    execution_status varchar(255) not null,
+    order_type varchar(255) not null,
+    client_id integer not null,
+	foreign key(client_id) references client(id),
+	foreign key(company_id) references company(id)
+);
+
+
+-- companies
+insert into company(name, value, quantity) values('Apple Inc.',100,500);
+insert into company(name, value, quantity) values('Foxconn',100,500);
+insert into company(name, value, quantity) values('Sony',100,500);
+insert into company(name, value, quantity) values('IBM',100,500);
+insert into company(name, value, quantity) values('Intel Corporation',100,500);
+insert into company(name, value, quantity) values('Dell',100,500);
+insert into company(name, value, quantity) values('SAP SE',100,500);
+insert into company(name, value, quantity) values('QUALCOMM Incorporated',100,500);
+insert into company(name, value, quantity) values('Alphabet Inc.',100,500);
+insert into company(name, value, quantity) values('Microsoft Corporation',100,500);
+
+-- clients
+insert into client(name, email) values('Mário Macedo', 'andr.macedo1@gmail.com');
+insert into client(name, email) values('Gabriel Souto', 'gabrielsouto100d@gmail.com');

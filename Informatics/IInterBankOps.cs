@@ -7,10 +7,10 @@ namespace InterBank {
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]
-    void PurchaseStock(string company, double amount);
+    void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value);
 
     [OperationContract]
     [TransactionFlow(TransactionFlowOption.Allowed)]
-    void SellStock(string company, double amount);
+    void SellStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value);
     }
 }
