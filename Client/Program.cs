@@ -16,13 +16,14 @@ namespace Client
             string email = "gabrielsouto100d@gmail.com";
             DateTime request_date_time = DateTime.Now;
             string execution_value = "Request";
+            string order_type = "Purchase";
 
             InterBankOpsClient proxy = new InterBankOpsClient();
             //    Console.WriteLine("Before: BankA balance = {0:F2}  BankB balance = {1:F2}",  bankAProxy.GetBalance(acctA), bankBProxy.GetBalance(acctB));
             Console.WriteLine("Purchasing: " + company + " whith: " + quantity.ToString("F2"));
             try
             {
-                proxy.PurchaseStock(company, quantity, username, email, request_date_time, execution_value);
+                proxy.PurchaseStock(company, quantity, username, email, request_date_time, execution_value,order_type);
             }
             catch (Exception ex)
             {

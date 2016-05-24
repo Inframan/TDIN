@@ -19,11 +19,8 @@ namespace Client.InterBank {
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/PurchaseStock", ReplyAction = "http://tempuri.org/IInterBankOps/PurchaseStockResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value);
+        void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type);
 
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/SellStock", ReplyAction= "http://tempuri.org/IInterBankOps/SellStockResponse")]
-        [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void SellStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -53,13 +50,9 @@ namespace Client.InterBank {
                 base(binding, remoteAddress) {
         }
         
-        public void SellStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value) {
-            base.Channel.SellStock(company, quantity, username, email, request_date_time, execution_value);
+        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type) {
+            base.Channel.PurchaseStock(company, quantity, username, email, request_date_time, execution_value, order_type);
         }
-
-        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value)
-        {
-            base.Channel.PurchaseStock(company, quantity, username, email, request_date_time, execution_value);
-        }
+        
     }
 }

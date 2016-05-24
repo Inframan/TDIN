@@ -18,7 +18,7 @@ namespace InterBank
         }
 
         [OperationBehavior(TransactionScopeRequired = true)]
-        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value)
+        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type)
         {
             //string message = String.Format("Transfer of {0:F2} from A{1} to B{2}", amount, acctA, acctB);
 
@@ -43,7 +43,7 @@ namespace InterBank
 
 
                 string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,execution_status,client_id) values("+quantity.ToString()+","+
-                    "'" + request_date_time.ToString()+ "'" + "," +company_id.ToString()+","+"'Purchase'," + "'" + execution_value + "'" + ","+client_id.ToString()+");";
+                    "'" + request_date_time.ToString()+ "'" + "," +company_id.ToString()+","+"'"+order_type+"'," + "'" + execution_value + "'" + ","+client_id.ToString()+");";
                 Console.WriteLine(sqlcmd);
 
                 cmd = new SQLiteCommand(sqlcmd, conn);
@@ -58,18 +58,9 @@ namespace InterBank
             {
                 conn.Close();
             }
-
-
-
-
+            
         }
 
-        [OperationBehavior(TransactionScopeRequired = true)]
-        public void SellStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value)
-        {
-            // string message = String.Format("Transfer of {0:F2} from B{1} to A{2}", amount, acctB, acctA);
-            supervisor.SellStock(company, quantity);
-        }
 
         public class InvalidRequestException : Exception
         {
