@@ -4,6 +4,7 @@ using Server.BankA;
 using Server.BankB;
 using Server.Supervisor;
 using System.Data.SQLite;
+using System.Collections.Generic;
 
 namespace InterBank
 {
@@ -61,6 +62,35 @@ namespace InterBank
             
         }
 
+        public List<string> GetCompanies()
+        {
+            List<string> companies = new List<string>();
+
+            try
+            {
+                conn.Open();
+
+                string sqlcmd = "select name from company;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+                SQLiteDataReader r = cmd.ExecuteReader();
+
+                while(r.Read())
+                {
+                    companies.Add(r["name"].ToString());
+                }
+                
+            
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return companies;
+
+        }
 
         public class InvalidRequestException : Exception
         {

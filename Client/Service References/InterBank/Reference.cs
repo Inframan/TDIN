@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 namespace Client.InterBank {
     
@@ -21,8 +22,12 @@ namespace Client.InterBank {
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
         void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type);
 
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/GetCompanies", ReplyAction = "http://tempuri.org/IInterBankOps/GetCompaniesResponse")]
+        [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
+        List<String> GetCompanies();
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IInterBankOpsChannel : Client.InterBank.IInterBankOps, System.ServiceModel.IClientChannel {
     }
@@ -53,6 +58,11 @@ namespace Client.InterBank {
         public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type) {
             base.Channel.PurchaseStock(company, quantity, username, email, request_date_time, execution_value, order_type);
         }
-        
+
+        public List<String> GetCompanies()
+        {
+            return base.Channel.GetCompanies();
+        }
+
     }
 }
