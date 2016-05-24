@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerA", "ServerA\ServerA.csproj", "{B58B2479-94FA-49A4-A1BE-CB5027673C63}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Informatics", "Informatics\Informatics.csproj", "{127D5E95-F81F-44FA-8420-D36DEF56240D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stock", "Stock\Stock.csproj", "{7274B449-A89A-4BDF-B895-BE59BD94B71D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebClient.csproj", "{941598C0-C596-4609-A860-83F43AF67A78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{7274B449-A89A-4BDF-B895-BE59BD94B71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7274B449-A89A-4BDF-B895-BE59BD94B71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7274B449-A89A-4BDF-B895-BE59BD94B71D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{941598C0-C596-4609-A860-83F43AF67A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{941598C0-C596-4609-A860-83F43AF67A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{941598C0-C596-4609-A860-83F43AF67A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{941598C0-C596-4609-A860-83F43AF67A78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

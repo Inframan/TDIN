@@ -1,0 +1,60 @@
+﻿body {
+}
+
+.navbar {
+    margin: 0;
+    background: #0E100F;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #E81707;
+}
+
+.navbar a {
+    color: #E81707 !important;
+    text-shadow: none !important;
+    outline: none !important;
+    text-transform: uppercase;
+}
+
+.navbar .navbar-brand{
+    text-transform: none !important;
+    font-size: 1.5em;
+}
+
+
+.jumbotron {
+    margin: 0;
+    min-height: 600px;
+    background: url(/img/banner2.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+#stocks_form {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 15px 20px;
+    color: #0E5C20;
+}
+
+#stocks_form .form-group label {
+    padding: 7px 0 0 0;
+}
+
+#stocks_form select,
+#stocks_form input {
+    border-radius: 0;
+    border: none;
+}
+
+#stocks_form select:focus,
+#stocks_form input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#stocks_form .btn {
+    outline: none;
+    box-shadow: none;
+    background: #0E5C20;
+    color: #fff;
+    border-radius: 0;
+}
