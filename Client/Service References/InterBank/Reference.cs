@@ -8,22 +8,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
 namespace Client.InterBank {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="InterBank.IInterBankOps", SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IInterBankOps {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/PurchaseStock", ReplyAction= "http://tempuri.org/IInterBankOps/PurchaseStockResponse")]
-        [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void PurchaseStock(string company, double amount);
 
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/SellStock", ReplyAction= "http://tempuri.org/IInterBankOps/SellStockResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/PurchaseStock", ReplyAction = "http://tempuri.org/IInterBankOps/PurchaseStockResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void SellStock(string company, double amount);
+        void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/GetCompanies", ReplyAction = "http://tempuri.org/IInterBankOps/GetCompaniesResponse")]
+        [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
+        List<String> GetCompanies();
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IInterBankOpsChannel : Client.InterBank.IInterBankOps, System.ServiceModel.IClientChannel {
     }
@@ -51,12 +55,14 @@ namespace Client.InterBank {
                 base(binding, remoteAddress) {
         }
         
-        public void PurchaseStock(string company, double amount) {
-            base.Channel.PurchaseStock(company, amount);
+        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type) {
+            base.Channel.PurchaseStock(company, quantity, username, email, request_date_time, execution_value, order_type);
         }
-        
-        public void SellStock(string company, double amount) {
-            base.Channel.SellStock(company, amount);
+
+        public List<String> GetCompanies()
+        {
+            return base.Channel.GetCompanies();
         }
+
     }
 }
