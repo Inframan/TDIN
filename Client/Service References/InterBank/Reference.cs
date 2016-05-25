@@ -26,6 +26,10 @@ namespace Client.InterBank {
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
         List<String> GetCompanies();
 
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/GetOrders", ReplyAction = "http://tempuri.org/IInterBankOps/GetOrdersResponse")]
+        [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
+        List<string[]> GetOrders(string client_name,string client_mail);
+
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -62,6 +66,11 @@ namespace Client.InterBank {
         public List<String> GetCompanies()
         {
             return base.Channel.GetCompanies();
+        }
+
+        public List<string[]> GetOrders(string client_name, string client_mail)
+        {
+            return base.Channel.GetOrders(client_name,client_mail);
         }
 
     }

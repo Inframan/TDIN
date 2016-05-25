@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 
+
 namespace InterBank
 {
     [ServiceContract(SessionMode = SessionMode.Required)]
@@ -15,6 +16,10 @@ namespace InterBank
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
         List<String> GetCompanies();
+
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        List<string[]> GetOrders(string client_name, string client_id);
 
     }
 }

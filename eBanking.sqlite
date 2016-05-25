@@ -19,9 +19,9 @@ drop table if exists `orders`;
 create table `orders`(
 	id integer primary key AUTOINCREMENT,
 	quantity int not null,
-	request_date datetime,
+	request_date text,
 	execution_value float,
-	execution_date datetime,
+	execution_date text,
 	company_id int not null,
     execution_status varchar(255) not null,
     order_type varchar(255) not null,
