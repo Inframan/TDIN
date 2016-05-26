@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Server.Supervisor {
     
     
@@ -16,10 +18,9 @@ namespace Server.Supervisor {
     public interface ISupervisorOps {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ISupervisorOps/PurchaseStock")]
-        void PurchaseStock(string company, double amount);
+        void PurchaseStock(int order_id,string company, int company_id, int quantity, string username, int client_id, DateTime request_date_time, string execution_value, string order_type);
 
-        [System.ServiceModel.OperationContractAttribute(IsOneWay = true, Action = "http://tempuri.org/ISupervisorOps/SellStock")]
-        void SellStock(string company, double amount);
+ 
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,14 +49,9 @@ namespace Server.Supervisor {
         public SupervisorOpsClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
-        
-        public void PurchaseStock(string company, double amount) {
-            base.Channel.PurchaseStock(company,amount);
-        }
 
-        public void SellStock(string company, double amount)
-        {
-            base.Channel.SellStock(company, amount);
+        public void PurchaseStock(int id, string company,int company_id, int quantity, string username, int client_id, DateTime request_date_time, string execution_value, string order_type) {
+            base.Channel.PurchaseStock(id,company,company_id, quantity, username, client_id, request_date_time, execution_value, order_type);
         }
     }
 }

@@ -27,37 +27,39 @@ namespace InterBank
                 conn.Open();
                 //string sqlcmd = "update Accounts set Balance=Balance+" + amount.ToString("F2") +
                 //           " where AccNr=" + acct + ";";
-                string getcompany_id= "select id from company where name=" + "'"+company + "';";
-                string getclient_id = "select id from client where name=" + "'"+username+"'"+ " and email="+ "'" + email +"';";
+                string getcompany_id = "select id from company where name=" + "'" + company + "';";
+                string getclient_id = "select id from client where name=" + "'" + username + "'" + " and email=" + "'" + email + "';";
                 SQLiteCommand cmd = new SQLiteCommand(getcompany_id, conn);
                 int company_id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
-                
+
                 cmd = new SQLiteCommand(getclient_id, conn);
                 int client_id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
 
-                if (company_id < 1 || client_id < 1 || quantity <=0)
+                if (company_id < 1 || client_id < 1 || quantity <= 0)
                     throw new InvalidRequestException();
 
 
 
 
-                string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,execution_status,client_id) values("+quantity.ToString()+","+
-                    "'" + request_date_time.ToString()+ "'" + "," +company_id.ToString()+","+"'"+order_type+"'," + "'" + execution_value + "'" + ","+client_id.ToString()+");";
+                string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,execution_status,client_id) values(" + quantity.ToString() + "," +
+                    "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + "'" + execution_value + "'" + "," + client_id.ToString() + ");";
                 Console.WriteLine(sqlcmd);
 
                 cmd = new SQLiteCommand(sqlcmd, conn);
-                int rows = Convert.ToInt32(cmd.ExecuteNonQuery().ToString());
+                int rows = Convert.ToInt32(cmd.ExecuteNonQuery());
                 if (rows == 1)
                 {
-                    Console.WriteLine("Sucucessu!");
-                    supervisor.PurchaseStock(company, quantity);
+                    string get_id = "select id from orders where request_date = '" + request_date_time.ToString() + "';";
+                    cmd = new SQLiteCommand(get_id, conn);
+                    int id = Convert.ToInt16(cmd.ExecuteScalar());
+                    supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time, execution_value, order_type);
                 }
             }
             finally
             {
                 conn.Close();
             }
-            
+
         }
 
         public List<string> GetCompanies()
@@ -73,12 +75,12 @@ namespace InterBank
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 SQLiteDataReader r = cmd.ExecuteReader();
 
-                while(r.Read())
+                while (r.Read())
                 {
                     companies.Add(r["name"].ToString());
                 }
-                
-            
+
+
             }
             finally
             {
@@ -94,7 +96,7 @@ namespace InterBank
         {
             List<string[]> orders = new List<string[]>();
 
-            
+
 
             try
             {
@@ -107,15 +109,15 @@ namespace InterBank
 
                 while (r.Read())
                 {
-                    
+
                     string[] order = new string[7];
                     order[0] = r["quantity"].ToString();
                     order[1] = Convert.ToString(r["request_date"]);
                     order[2] = r["execution_status"].ToString();
                     if (!r.IsDBNull(1))
-                        order[3] = r["execution_value"].ToString();                    
+                        order[3] = r["execution_value"].ToString();
                     if (!r.IsDBNull(0))
-                         order[4] = r["execution_date"].ToString();
+                        order[4] = r["execution_date"].ToString();
                     order[5] = r["order_type"].ToString();
                     order[6] = r["name"].ToString();
                     orders.Add(order);
@@ -129,6 +131,27 @@ namespace InterBank
 
             return orders;
         }
+
+        public void UpdateOrder(int order_id, DateTime execution_date, string execution_status, string execution_value)
+        {
+
+
+            try
+            {
+                conn.Open();
+                string sqlcmd = "update orders set execution_value= '" + execution_value + "', execution_date = '" + execution_date.ToString()
++ "',execution_status='" + execution_status + "' where id = " + order_id + ";";
+                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+        }
+
 
         public class InvalidRequestException : Exception
         {

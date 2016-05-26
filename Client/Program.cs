@@ -23,17 +23,6 @@ namespace Client
 
             Program p = new Program();
 
-
-            /*
-                    0 = quantity
-                    1 = request_date
-                    2 = execution_status
-                    3 = execution_value (may be empty)
-                    4 = execution_date (may be empty)
-                    5 = order_type
-                    6 = company
-            */
-
             List<string[]> orders = p.GetOrders(username, email);
             
 

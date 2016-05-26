@@ -21,5 +21,9 @@ namespace InterBank
         [TransactionFlow(TransactionFlowOption.Allowed)]
         List<string[]> GetOrders(string client_name, string client_id);
 
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        void UpdateOrder(int order_id,DateTime execution_date, string execution_status, string execution_value);
+
     }
 }

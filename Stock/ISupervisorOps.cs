@@ -9,11 +9,7 @@ namespace Supervisor
 
         [OperationContract(IsOneWay = true)]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        void PurchaseStock(string company, double amount);
-
-
-        [OperationContract(IsOneWay = true)]
-        [TransactionFlow(TransactionFlowOption.Allowed)]
-        void SellStock(string company, double amount);
+        void PurchaseStock(int order_id,string company, int company_id, int quantity, string username, int client_id, DateTime request_date_time, string execution_value, string order_type);
+        
     }
 }
