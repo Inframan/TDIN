@@ -19,7 +19,7 @@ namespace InterBank
 
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        List<string[]> GetOrders(string client_name, string client_id);
+        List<string[]> GetOrders(string client_name, string client_mail);
 
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]

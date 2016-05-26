@@ -106,5 +106,20 @@ namespace Client
             return proxy.GetOrders(client_name, client_email);
         }
 
+        private void getOrdersFromUser(object sender, EventArgs e)
+        {
+            string name = name_list_input.Text;
+            string email = email_list_input.Text;
+
+            var orders = GetOrders(name, email);
+
+
+            for(int i = 0; i < orders.Count; i++)
+            {
+                ordersList.Rows.Add(orders[i][5], orders[i][0], orders[i][3], orders[i][6], orders[i][1], orders[i][2], orders[i][4]);                 
+            }
+
+            ordersList.Update();
+        }
     }
 }

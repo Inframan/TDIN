@@ -28,20 +28,11 @@ namespace InterBank
                 //string sqlcmd = "update Accounts set Balance=Balance+" + amount.ToString("F2") +
                 //           " where AccNr=" + acct + ";";
                 string getcompany_id = "select id from company where name=" + "'" + company + "';";
-                string getclient_id = "select id from client where name=" + "'" + username + "'" + " and email=" + "'" + email + "';";
                 SQLiteCommand cmd = new SQLiteCommand(getcompany_id, conn);
                 int company_id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
 
-                cmd = new SQLiteCommand(getclient_id, conn);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                int client_id;
-                if (reader.HasRows)
-                {
-                    reader.Read();
-                    client_id = Convert.ToInt16(reader["id"]);
-                }
-                else
-                    client_id = storeNewUser(username, email);
+
+                int client_id = getClient(username, email);
 
 
                 if (quantity <= 0 || client_id < 0)
@@ -49,7 +40,7 @@ namespace InterBank
 
 
                 string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,client_id,execution_status) values(" + quantity.ToString() + "," +
-                    "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + "'" + "," + client_id.ToString() + "','Request');";
+                    "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + client_id.ToString() + ",'Request');";
                 Console.WriteLine(sqlcmd);
 
                 cmd = new SQLiteCommand(sqlcmd, conn);
@@ -67,6 +58,24 @@ namespace InterBank
                 conn.Close();
             }
 
+        }
+
+        private int getClient(string username, string email)
+        {
+            int client_id;
+            string getclient_id = "select id from client where name=" + "'" + username + "'" + " and email=" + "'" + email + "';";
+
+            SQLiteCommand cmd = new SQLiteCommand(getclient_id, conn);
+            SQLiteDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                client_id = Convert.ToInt16(reader["id"]);
+            }
+            else
+                client_id = storeNewUser(username, email);
+
+            return client_id;
         }
 
         public List<string> GetCompanies()
@@ -99,7 +108,7 @@ namespace InterBank
 
         }
 
-        public List<string[]> GetOrders(string client_name, string client_id)
+        public List<string[]> GetOrders(string client_name, string client_mail)
         {
             List<string[]> orders = new List<string[]>();
 
@@ -109,7 +118,10 @@ namespace InterBank
             {
                 conn.Open();
 
-                string sqlcmd = "select orders.execution_date, orders.execution_value, orders.order_type, orders.quantity, orders.request_date, orders.execution_status, company.name from orders, company where orders.company_id = company.id;";
+
+               int client_id =  getClient(client_name, client_mail);
+
+                string sqlcmd = "select orders.execution_date, orders.execution_value, orders.order_type, orders.quantity, orders.request_date, orders.execution_status, company.name from orders, company where orders.company_id = company.id and orders.client_id ="+client_id+";";
 
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 SQLiteDataReader r = cmd.ExecuteReader();
