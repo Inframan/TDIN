@@ -90,6 +90,46 @@ namespace InterBank
 
         }
 
+        public List<string[]> GetOrders(string client_name, string client_id)
+        {
+            List<string[]> orders = new List<string[]>();
+
+            
+
+            try
+            {
+                conn.Open();
+
+                string sqlcmd = "select orders.execution_date, orders.execution_value, orders.order_type, orders.quantity, orders.request_date, orders.execution_status, company.name from orders, company where orders.company_id = company.id;";
+
+                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+                SQLiteDataReader r = cmd.ExecuteReader();
+
+                while (r.Read())
+                {
+                    
+                    string[] order = new string[7];
+                    order[0] = r["quantity"].ToString();
+                    order[1] = Convert.ToString(r["request_date"]);
+                    order[2] = r["execution_status"].ToString();
+                    if (!r.IsDBNull(1))
+                        order[3] = r["execution_value"].ToString();                    
+                    if (!r.IsDBNull(0))
+                         order[4] = r["execution_date"].ToString();
+                    order[5] = r["order_type"].ToString();
+                    order[6] = r["name"].ToString();
+                    orders.Add(order);
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+
+            return orders;
+        }
+
         public class InvalidRequestException : Exception
         {
 

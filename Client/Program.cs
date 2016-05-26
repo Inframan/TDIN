@@ -23,6 +23,27 @@ namespace Client
 
             proxy = new InterBankOpsClient();
 
+            Program p = new Program();
+
+
+            /*
+                    0 = quantity
+                    1 = request_date
+                    2 = execution_status
+                    3 = execution_value (may be empty)
+                    4 = execution_date (may be empty)
+                    5 = order_type
+                    6 = company
+            */
+
+            List<string[]> orders = p.GetOrders(username, email);
+            
+
+            foreach (string[] o in orders)
+            {
+                Order orderclass = new Order(o[0], o[1], o[2], o[3], o[4], o[5], o[6]);
+            }
+
             if (proxy.State == CommunicationState.Opened)
                 proxy.Close();
             Console.WriteLine("Press <Enter> to terminate.");
@@ -54,6 +75,10 @@ namespace Client
                 proxy.Close();
         }
 
+        public List<string[]> GetOrders(string client_name, string client_email)
+        {
+            return proxy.GetOrders(client_name, client_email);
+        }
 
 
     }
