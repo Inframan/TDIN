@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
 using Client.InterBank;
-using Client.BankA;
-using Client.BankB;
 using System.Collections.Generic;
 
 namespace Client

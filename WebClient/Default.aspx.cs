@@ -9,9 +9,9 @@ namespace WebClient
             if (!IsPostBack)
             {
 
-                var InterBank = new InterBankOps();
+               /* var InterBank = new InterBankOps();
 
-                var companies = InterBank.GetCompanies();
+                var companies = InterBank.GetCompanies();*/
             }
         }
 
