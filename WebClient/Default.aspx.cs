@@ -8,11 +8,12 @@ namespace WebClient
         {
             if (!IsPostBack)
             {
-                
 
+                var InterBank = new InterBankOps();
+
+                var companies = InterBank.GetCompanies();
             }
         }
 
-    }
     }
 }

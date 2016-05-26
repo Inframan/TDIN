@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ServiceModel;
-using Server.Supervisor;
-using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Collections.Generic;
+using Server.Supervisor;
 
-namespace InterBank
+namespace WebClient
 {
     public class InterBankOps : IInterBankOps
     {
