@@ -33,16 +33,23 @@ namespace InterBank
                 int company_id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
 
                 cmd = new SQLiteCommand(getclient_id, conn);
-                int client_id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                int client_id;
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    client_id = Convert.ToInt16(reader["id"]);
+                }
+                else
+                    client_id = storeNewUser(username, email);
 
-                if (company_id < 1 || client_id < 1 || quantity <= 0)
+
+                if (quantity <= 0 || client_id < 0)
                     throw new InvalidRequestException();
 
 
-
-
-                string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,execution_status,client_id) values(" + quantity.ToString() + "," +
-                    "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + "'" + execution_value + "'" + "," + client_id.ToString() + ");";
+                string sqlcmd = "insert into orders(quantity, request_date, company_id,order_type,client_id,execution_status) values(" + quantity.ToString() + "," +
+                    "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + "'" + "," + client_id.ToString() + "','Request');";
                 Console.WriteLine(sqlcmd);
 
                 cmd = new SQLiteCommand(sqlcmd, conn);
@@ -52,7 +59,7 @@ namespace InterBank
                     string get_id = "select id from orders where request_date = '" + request_date_time.ToString() + "';";
                     cmd = new SQLiteCommand(get_id, conn);
                     int id = Convert.ToInt16(cmd.ExecuteScalar());
-                    supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time, execution_value, order_type);
+                    supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time,  order_type);
                 }
             }
             finally
@@ -150,6 +157,22 @@ namespace InterBank
             }
 
 
+        }
+
+        public int storeNewUser(string username, string email)
+        {
+            string sqlcmd = "insert into client(name, email) values('" + username + "', '" + email + "');";
+
+            var cmd = new SQLiteCommand(sqlcmd, conn);
+            int rows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            if (rows == 1)
+            {
+                string get_id = "select id from client where email = '" + email + "';";
+                cmd = new SQLiteCommand(get_id, conn);
+                return Convert.ToInt16(cmd.ExecuteScalar());
+            }
+
+            return -1;
         }
 
 

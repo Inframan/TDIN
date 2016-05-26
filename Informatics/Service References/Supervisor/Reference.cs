@@ -18,7 +18,7 @@ namespace Server.Supervisor {
     public interface ISupervisorOps {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ISupervisorOps/PurchaseStock")]
-        void PurchaseStock(int order_id,string company, int company_id, int quantity, string username, int client_id, DateTime request_date_time, string execution_value, string order_type);
+        void PurchaseStock(int order_id,string company, int company_id, int quantity, string username, int client_id, DateTime request_date_time, string order_type);
 
  
     }
@@ -50,8 +50,8 @@ namespace Server.Supervisor {
                 base(binding, remoteAddress) {
         }
 
-        public void PurchaseStock(int id, string company,int company_id, int quantity, string username, int client_id, DateTime request_date_time, string execution_value, string order_type) {
-            base.Channel.PurchaseStock(id,company,company_id, quantity, username, client_id, request_date_time, execution_value, order_type);
+        public void PurchaseStock(int id, string company,int company_id, int quantity, string username, int client_id, DateTime request_date_time, string order_type) {
+            base.Channel.PurchaseStock(id,company,company_id, quantity, username, client_id, request_date_time, order_type);
         }
     }
 }

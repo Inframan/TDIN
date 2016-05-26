@@ -18,8 +18,8 @@ namespace Supervisor
             try
             {
                 conn.Open();
-                string sqlcmd = "insert into orders(id,quantity, request_date, company_id,order_type,execution_status,client_id, client_name) values("+order_id.ToString()+"," + quantity.ToString() + "," +
-                        "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + "'" + execution_value + "'" + "," + client_id.ToString() + ",'" + username + "'" + ");";
+                string sqlcmd = "insert into orders(id,quantity, request_date, company_id,order_type,client_id,execution_status) values("+order_id.ToString()+"," + quantity.ToString() + "," +
+                        "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + client_id.ToString() + ",'Request');";
 
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 cmd.ExecuteNonQuery();               
