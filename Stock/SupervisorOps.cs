@@ -30,46 +30,5 @@ namespace Supervisor
             }
             Console.WriteLine("Purchasing: " + company + " for: " + quantity);
         }
-
-
-        public void GetOrders()
-        {
-            conn = new SQLiteConnection("data source=eBanking.db");
-
-            try
-            {
-                conn.Open();
-                string sqlcmd = "select * from orders;";                
-
-                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-                SQLiteDataReader rd = cmd.ExecuteReader();
-
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-/*
-        public void ()
-        {
-            conn = new SQLiteConnection("data source=eBanking.db");
-
-            try
-            {
-                conn.Open();
-                string sqlcmd = "select * from orders;";
-
-                SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
-                SQLiteDataReader rd = cmd.ExecuteReader();
-
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }*/
-
     }
 }
