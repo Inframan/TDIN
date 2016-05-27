@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4804fdf2-1584-468a-a46a-9dbe5b41c338" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/InterBank/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="InterBankOps.wsdl" MetadataType="Wsdl" ID="f4345c74-6b99-42cd-8b8f-c4243fe1901e" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/InterBank/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d21a0686-5b05-4681-96cc-63b60c885ee8" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/InterBank/?xsd=xsd0" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="34be1680-7996-4a57-9d95-a8696cd13c36" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/InterBank/?disco" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="a6adc400-fa60-4d1a-88d7-149322b49593" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/InterBank/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="a7491d03-d317-4062-b5ea-023891d2ce67" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/InterBank/?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
