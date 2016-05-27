@@ -3,6 +3,8 @@ using System.ServiceModel;
 using Server.Supervisor;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Net.Mail;
+using System.Text;
 
 namespace InterBank
 {
@@ -151,7 +153,7 @@ namespace InterBank
             return orders;
         }
 
-        public void UpdateOrder(int order_id, DateTime execution_date, string execution_status, string execution_value)
+        public void UpdateOrder(int client_id, int order_id, DateTime execution_date, string execution_status, string execution_value)
         {
 
 
@@ -162,6 +164,10 @@ namespace InterBank
 + "',execution_status='" + execution_status + "' where id = " + order_id + ";";
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 cmd.ExecuteNonQuery();
+
+            
+
+                sendEmail(getClientEmail(client_id), order_id, execution_date, execution_status, execution_value);
             }
             finally
             {
@@ -169,6 +175,40 @@ namespace InterBank
             }
 
 
+        }
+
+        private string getClientEmail(int id)
+        {
+            string client_email = "";
+
+            
+            string getclient_id = "select email from client where id=" + id + ";";
+
+            SQLiteCommand cmd = new SQLiteCommand(getclient_id, conn);
+            client_email = (cmd.ExecuteScalar()).ToString();
+
+
+            return client_email;
+        }
+
+        private void sendEmail(string client_email, int order_id, DateTime execution_date, string execution_status, string execution_value)
+        {
+
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("tdin.informatics@gmail.com", "caca2710");
+
+            MailMessage mm = new MailMessage("tdin.informatics@gmail.com", client_email, "Informatics Department", client_email);
+            mm.BodyEncoding = UTF8Encoding.UTF8;
+            mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+            mm.Subject = "Order " + order_id + " updated";
+            mm.Body = "Order " + order_id + " updated:\nExecution Date: " + execution_date + "\nExecution Status: " + execution_status + "\nExecution Value: " + execution_value;
+            client.Send(mm);
         }
 
         public int storeNewUser(string username, string email)

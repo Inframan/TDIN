@@ -35,7 +35,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="client_name" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="client_id" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="client_mail" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -49,6 +49,7 @@
   <xs:element name="UpdateOrder">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="client_id" type="xs:int" />
         <xs:element minOccurs="0" name="order_id" type="xs:int" />
         <xs:element minOccurs="0" name="execution_date" type="xs:dateTime" />
         <xs:element minOccurs="0" name="execution_status" nillable="true" type="xs:string" />

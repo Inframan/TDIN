@@ -26,6 +26,7 @@ namespace Client
             order_type_combobox.Items.Insert(0, "Purchase");
             order_type_combobox.Items.Insert(1, "Sell");
             order_type_combobox.SelectedItem = 0;
+            
         }
 
         private void label2_Click(object sender, EventArgs e)

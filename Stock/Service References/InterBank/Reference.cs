@@ -31,17 +31,17 @@ namespace Supervisor.InterBank {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/GetOrders", ReplyAction="http://tempuri.org/IInterBankOps/GetOrdersResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        string[][] GetOrders(string client_name, string client_id);
+        string[][] GetOrders(string client_name, string client_mail);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/GetOrders", ReplyAction="http://tempuri.org/IInterBankOps/GetOrdersResponse")]
-        System.Threading.Tasks.Task<string[][]> GetOrdersAsync(string client_name, string client_id);
+        System.Threading.Tasks.Task<string[][]> GetOrdersAsync(string client_name, string client_mail);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/UpdateOrder", ReplyAction="http://tempuri.org/IInterBankOps/UpdateOrderResponse")]
         [System.ServiceModel.TransactionFlowAttribute(System.ServiceModel.TransactionFlowOption.Allowed)]
-        void UpdateOrder(int order_id, System.DateTime execution_date, string execution_status, string execution_value);
+        void UpdateOrder(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/UpdateOrder", ReplyAction="http://tempuri.org/IInterBankOps/UpdateOrderResponse")]
-        System.Threading.Tasks.Task UpdateOrderAsync(int order_id, System.DateTime execution_date, string execution_status, string execution_value);
+        System.Threading.Tasks.Task UpdateOrderAsync(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -87,20 +87,20 @@ namespace Supervisor.InterBank {
             return base.Channel.GetCompaniesAsync();
         }
         
-        public string[][] GetOrders(string client_name, string client_id) {
-            return base.Channel.GetOrders(client_name, client_id);
+        public string[][] GetOrders(string client_name, string client_mail) {
+            return base.Channel.GetOrders(client_name, client_mail);
         }
         
-        public System.Threading.Tasks.Task<string[][]> GetOrdersAsync(string client_name, string client_id) {
-            return base.Channel.GetOrdersAsync(client_name, client_id);
+        public System.Threading.Tasks.Task<string[][]> GetOrdersAsync(string client_name, string client_mail) {
+            return base.Channel.GetOrdersAsync(client_name, client_mail);
         }
         
-        public void UpdateOrder(int order_id, System.DateTime execution_date, string execution_status, string execution_value) {
-            base.Channel.UpdateOrder(order_id, execution_date, execution_status, execution_value);
+        public void UpdateOrder(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value) {
+            base.Channel.UpdateOrder(client_id, order_id, execution_date, execution_status, execution_value);
         }
         
-        public System.Threading.Tasks.Task UpdateOrderAsync(int order_id, System.DateTime execution_date, string execution_status, string execution_value) {
-            return base.Channel.UpdateOrderAsync(order_id, execution_date, execution_status, execution_value);
+        public System.Threading.Tasks.Task UpdateOrderAsync(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value) {
+            return base.Channel.UpdateOrderAsync(client_id, order_id, execution_date, execution_status, execution_value);
         }
     }
 }

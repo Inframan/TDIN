@@ -23,7 +23,7 @@ namespace InterBank
 
         [OperationContract]
         [TransactionFlow(TransactionFlowOption.Allowed)]
-        void UpdateOrder(int order_id,DateTime execution_date, string execution_status, string execution_value);
+        void UpdateOrder(int client_id, int order_id,DateTime execution_date, string execution_status, string execution_value);
 
     }
 }

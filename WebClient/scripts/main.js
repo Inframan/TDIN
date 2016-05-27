@@ -3,11 +3,14 @@ new Vue({
     data: {
         companies: [],
         selected_company: '',
-        order_types: [{text: 'Purchase', value: 'purchase'}, {text: 'Sell', value: 'sell'}],
-        selected_order_type: 'purchase',
+        order_types: [{text: 'Purchase', value: 'Purchase'}, {text: 'Sell', value: 'Sell'}],
+        selected_order_type: 'Purchase',
         client_email: '',
         client_name: '',
-        quantity: 1
+        quantity: 1,
+        orders_from_user: [],
+        list_email: '',
+        list_name: ''
     },
     ready() {
         this.fetchData();
@@ -16,8 +19,39 @@ new Vue({
         fetchData: function () {
             var url = 'http://tempuri.org/IInterBankOps/GetCompanies';
             $.ajax({
-                url: 'http://localhost:8733/Design_Time_Addresses/InterBank/?singleWsdl',
+                url: url,
                 method: 'get',
+                dataType: 'jsonp'
+            }).success(function (data) {
+                console.log(data);
+            });
+        },
+        getOrders: function () {
+            var url = 'http://tempuri.org/IInterBankOps/GetCompanies';
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: {
+                    name: this.list_name,
+                    email: this.list_email
+                },
+                dataType: 'jsonp'
+            }).success(function (data) {
+                console.log(data);
+            });
+        },
+        submitOrder: function () {
+            var url = 'http://tempuri.org/IInterBankOps/GetCompanies';
+            $.ajax({
+                url: url,
+                method: 'post',
+                data: {
+                    name: this.client_name,
+                    email: this.client_email,
+                    quantity: this.quantity,
+                    company: this.selected_company,
+                    type: this.selected_order_type
+                },
                 dataType: 'jsonp'
             }).success(function (data) {
                 console.log(data);

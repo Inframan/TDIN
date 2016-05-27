@@ -1,4 +1,6 @@
-﻿namespace Supervisor
+﻿using System;
+
+namespace Supervisor
 {
     partial class MainWindow
     {
@@ -142,7 +144,6 @@
             this.Name = "MainWindow";
             this.Text = "Stocks";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.exit);
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ordersList)).EndInit();
             this.ResumeLayout(false);
 

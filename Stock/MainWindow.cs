@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.ServiceModel;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Supervisor
@@ -22,16 +23,30 @@ namespace Supervisor
 
             UpdateOrdersList();
 
+
+            //enableTimer();
+        }
+
+        private void enableTimer()
+        {
+            // Create a timer
+            var myTimer = new System.Timers.Timer(10);
+            // Tell the timer what to do when it elapses
+            myTimer.Elapsed += new ElapsedEventHandler(myEvent);
+            // Set it to go off every five seconds
+            myTimer.Interval = 5000;
+            // And start it        
+            myTimer.Enabled = true;
+        }
+
+        private void myEvent(object source, ElapsedEventArgs e)
+        {
+            UpdateOrdersList();
         }
 
         private void exit(object sender, FormClosingEventArgs e)
         {
             host.Close();
-        }
-
-        private void MainWindow_Load(object sender, System.EventArgs e)
-        {
-
         }
 
         private void ordersList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -43,15 +58,16 @@ namespace Supervisor
                 var row = ordersList.Rows[e.RowIndex];
 
                 var order_id = row.Cells[0].Value;
+                var client_id = row.Cells[1].Value;
                 var value = row.Cells[6].Value;
                 var status = row.Cells[7].Value;
                 var date = DateTime.Now;
 
-                SetOrderStatus(row, Convert.ToInt16(order_id), value.ToString(), status.ToString(), date);
+                SetOrderStatus(row, Convert.ToInt16(client_id), Convert.ToInt16(order_id), value.ToString(), status.ToString(), date);
             }
         }
 
-        private void SetOrderStatus(DataGridViewRow row, int order_id, string value, string status, DateTime date)
+        private void SetOrderStatus(DataGridViewRow row, int client_id, int order_id, string value, string status, DateTime date)
         {
             conn = new SQLiteConnection("data source=eBanking.db");
             SQLiteDataReader reader;
@@ -61,7 +77,7 @@ namespace Supervisor
                 conn.Open();
 
                 InterBankOpsClient op = new InterBankOpsClient();
-                op.UpdateOrder(order_id, date, status, value);
+                op.UpdateOrder(client_id, order_id, date, status, value);
 
 
                 string sqlcmd = "delete from orders where id = " + order_id +";";
@@ -90,6 +106,7 @@ namespace Supervisor
 
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 reader = cmd.ExecuteReader();
+                ordersList.Rows.Clear();
 
                 while (reader.Read())
                 {
