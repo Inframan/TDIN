@@ -14,9 +14,9 @@ namespace RestService
         }
 
 
-        public void PurchaseStock(string company, int quantity, string username, string email, DateTime request_date_time, string execution_value, string order_type)
+        public void PurchaseStock(Entity request)
         {
-            o.PurchaseStock(company, quantity, username, email, request_date_time, execution_value, order_type);
+            o.PurchaseStock(request.company, request.quantity, request.username, request.email, request.request_date_time, request.execution_value, request.order_type);
         }
 
         public string[] GetCompanies()
