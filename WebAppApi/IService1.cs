@@ -20,7 +20,7 @@ namespace WebAppApi
         [OperationContract]
         string[] GetCompanies();
 
-        [WebInvoke(Method = "GET", UriTemplate = "/orders/{name}&{mail}", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "/orders/name={name}/mail={mail}", ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
         string[][] GetOrders(string name, string mail);
 
