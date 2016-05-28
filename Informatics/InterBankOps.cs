@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Net.Mail;
 using System.Text;
+using System.Messaging;
 
 namespace InterBank
 {
@@ -53,7 +54,24 @@ namespace InterBank
                     cmd = new SQLiteCommand(get_id, conn);
                     int id = Convert.ToInt16(cmd.ExecuteScalar());
                     supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time,  order_type);
-                }
+
+                    MessageQueue messageQueue = null;
+                    if (MessageQueue.Exists(@".\Private$\supervisor"))
+                    {
+                        messageQueue = new MessageQueue(@".\Private$\supervisor");
+                        if (messageQueue.Transactional == true)
+                        {
+                            using (MessageQueueTransaction trans = new MessageQueueTransaction())
+                            {
+                                trans.Begin();
+                                messageQueue.Send("My Message Data.", order_type + " " + id, trans);
+                                trans.Commit();
+                            }
+                        }
+                    }
+                    else
+                        messageQueue.Send("First ever Message is sent to MSMQ", "Title");
+                }   
             }
             finally
             {

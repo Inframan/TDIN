@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Messaging;
 using System.ServiceModel;
 using System.Timers;
 using System.Windows.Forms;
@@ -128,6 +129,18 @@ namespace Supervisor
 
         private void refreshTable(object sender, EventArgs e)
         {
+            if (MessageQueue.Exists(@".\Private$\supervisor"))
+            {
+
+                MessageQueue messageQueue = new MessageQueue(@".\Private$\SomeTestName");
+                System.Messaging.Message[] messages = messageQueue.GetAllMessages();
+                foreach (System.Messaging.Message message in messages)
+                {
+                    //Do something with the message.
+                }
+                // after all processing, delete all the messages
+                messageQueue.Purge();
+            }
             UpdateOrdersList();
         }
     }
