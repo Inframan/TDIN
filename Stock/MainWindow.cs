@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
 using System.Messaging;
 using System.ServiceModel;
 using System.Timers;
@@ -12,16 +13,18 @@ namespace Supervisor
     public partial class MainWindow : Form
     {
         ServiceHost host = new ServiceHost(typeof(SupervisorOps));
+        InterBankOpsClient op;
         private SQLiteConnection conn;
 
         public MainWindow()
         {
             host.Open();
-
+            op = new InterBankOpsClient();
 
             InitializeComponent();
+            op.StockSubscribe();
 
-
+            ReadMessageQueues();
             UpdateOrdersList();
 
 
@@ -47,6 +50,7 @@ namespace Supervisor
 
         private void exit(object sender, FormClosingEventArgs e)
         {
+            op.StockUnsubscribe();
             host.Close();
         }
 
@@ -77,11 +81,10 @@ namespace Supervisor
             {
                 conn.Open();
 
-                InterBankOpsClient op = new InterBankOpsClient();
                 op.UpdateOrder(client_id, order_id, date, status, value);
 
 
-                string sqlcmd = "delete from orders where id = " + order_id +";";
+                string sqlcmd = "delete from orders where id = " + order_id + ";";
                 SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
                 cmd.ExecuteNonQuery();
 
@@ -127,20 +130,54 @@ namespace Supervisor
             }
         }
 
-        private void refreshTable(object sender, EventArgs e)
+
+
+        private void ReadMessageQueues()
         {
             if (MessageQueue.Exists(@".\Private$\supervisor"))
             {
 
-                MessageQueue messageQueue = new MessageQueue(@".\Private$\SomeTestName");
+                MessageQueue messageQueue = new MessageQueue(@".\Private$\supervisor");
                 System.Messaging.Message[] messages = messageQueue.GetAllMessages();
+
+                string rec = "";
+                string sqlcmd;
                 foreach (System.Messaging.Message message in messages)
                 {
-                    //Do something with the message.
+                    string line;
+                    message.Formatter = new System.Messaging.XmlMessageFormatter(new String[] { });
+                    StreamReader sr = new StreamReader(message.BodyStream);
+                    
+                    while (sr.Peek() >= 0)
+                    {
+                        rec += sr.ReadLine();
+                    }
+
+                    string[] splitter1 = new string[] { "<string>" }, splitter2 = new string[] { "</string>" };
+                    rec = rec.Split(splitter1, StringSplitOptions.None)[1];
+                    sqlcmd = rec.Split(splitter2, StringSplitOptions.None)[0];
+
+                    conn = new SQLiteConnection("data source=eBanking.db");
+                    try
+                    {
+                        conn.Open();
+                        SQLiteCommand cmd = new SQLiteCommand(sqlcmd, conn);
+                        cmd.ExecuteNonQuery();
+
+
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+
+                    messageQueue.Purge();
                 }
-                // after all processing, delete all the messages
-                messageQueue.Purge();
             }
+        }
+
+        private void refreshTable(object sender, EventArgs e)
+        {
             UpdateOrdersList();
         }
     }

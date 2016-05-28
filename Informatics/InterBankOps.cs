@@ -13,6 +13,8 @@ namespace InterBank
     {
         SupervisorOpsClient supervisor = new SupervisorOpsClient();
         SQLiteConnection conn;
+        public bool stockOnline = false;
+
 
         public InterBankOps()
         {
@@ -53,25 +55,31 @@ namespace InterBank
                     string get_id = "select id from orders where request_date = '" + request_date_time.ToString() + "';";
                     cmd = new SQLiteCommand(get_id, conn);
                     int id = Convert.ToInt16(cmd.ExecuteScalar());
-                    supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time,  order_type);
 
-                    MessageQueue messageQueue = null;
-                    if (MessageQueue.Exists(@".\Private$\supervisor"))
+                    if (stockOnline)
+                        supervisor.PurchaseStock(id, company, company_id, quantity, username, client_id, request_date_time, order_type);
+                    else
                     {
-                        messageQueue = new MessageQueue(@".\Private$\supervisor");
-                        if (messageQueue.Transactional == true)
+
+                        MessageQueue messageQueue = null;
+                        if (MessageQueue.Exists(@".\Private$\supervisor"))
                         {
-                            using (MessageQueueTransaction trans = new MessageQueueTransaction())
+                            messageQueue = new MessageQueue(@".\Private$\supervisor");
+                            if (messageQueue.Transactional == true)
                             {
-                                trans.Begin();
-                                messageQueue.Send("My Message Data.", order_type + " " + id, trans);
-                                trans.Commit();
+                                using (MessageQueueTransaction trans = new MessageQueueTransaction())
+                                {
+                                    trans.Begin();
+                                    messageQueue.Send("insert into orders(id,quantity, request_date, company_id,order_type,client_id,execution_status, client_name) values(" + id.ToString() + "," + quantity.ToString() + "," +
+                        "'" + request_date_time.ToString() + "'" + "," + company_id.ToString() + "," + "'" + order_type + "'," + client_id.ToString() + ",'Request','"+username+"');", order_type + " " + id, trans);
+                                    trans.Commit();
+                                }
                             }
                         }
+                        else
+                            messageQueue.Send("First ever Message is sent to MSMQ", order_type + " " + id);
                     }
-                    else
-                        messageQueue.Send("First ever Message is sent to MSMQ", "Title");
-                }   
+                }
             }
             finally
             {
@@ -79,6 +87,17 @@ namespace InterBank
             }
 
         }
+
+        public void StockSubscribe()
+        {
+            stockOnline = true;
+        }
+
+        public void StockUnsubscribe()
+        {
+            stockOnline = false;
+        }
+
 
         private int getClient(string username, string email)
         {

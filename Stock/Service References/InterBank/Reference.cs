@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace Supervisor.InterBank {
     
     
@@ -42,15 +44,23 @@ namespace Supervisor.InterBank {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInterBankOps/UpdateOrder", ReplyAction="http://tempuri.org/IInterBankOps/UpdateOrderResponse")]
         System.Threading.Tasks.Task UpdateOrderAsync(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/StockSubscribe", ReplyAction = "http://tempuri.org/IInterBankOps/StockSubscribeResponse")]
+        void StockSubscribe();
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IInterBankOps/StockUnsubscribe", ReplyAction = "http://tempuri.org/IInterBankOps/StockUnsubscribeResponse")]
+        void StockUnsubscribe();
+
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IInterBankOpsChannel : Supervisor.InterBank.IInterBankOps, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class InterBankOpsClient : System.ServiceModel.ClientBase<Supervisor.InterBank.IInterBankOps>, Supervisor.InterBank.IInterBankOps {
+    public partial class InterBankOpsClient : System.ServiceModel.ClientBase<Supervisor.InterBank.IInterBankOps>, IInterBankOps
+    {
         
         public InterBankOpsClient() {
         }
@@ -101,6 +111,16 @@ namespace Supervisor.InterBank {
         
         public System.Threading.Tasks.Task UpdateOrderAsync(int client_id, int order_id, System.DateTime execution_date, string execution_status, string execution_value) {
             return base.Channel.UpdateOrderAsync(client_id, order_id, execution_date, execution_status, execution_value);
+        }
+
+        public void StockSubscribe()
+        {
+            base.Channel.StockSubscribe();
+        }
+
+        public void StockUnsubscribe()
+        {
+            base.Channel.StockUnsubscribe();
         }
     }
 }

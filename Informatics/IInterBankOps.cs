@@ -25,5 +25,15 @@ namespace InterBank
         [TransactionFlow(TransactionFlowOption.Allowed)]
         void UpdateOrder(int client_id, int order_id,DateTime execution_date, string execution_status, string execution_value);
 
+
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        void StockSubscribe();
+
+
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        void StockUnsubscribe();
+
     }
 }
