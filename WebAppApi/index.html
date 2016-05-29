@@ -41,7 +41,7 @@
 
     <div class="jumbotron">
         <div class="container">
-            <form class="form-horizontal col-lg-4 col-lg-offset-4 col-sm-10 col-sm-offset-1 col-xs-12" id="stocks_form">
+            <form @submit="submitOrder" class="form-horizontal col-lg-4 col-lg-offset-4 col-sm-10 col-sm-offset-1 col-xs-12" id="stocks_form">
                 <h1 class="text-center"><i class="fa fa-line-chart"></i></h1>
                 <div class="form-group">
                     <label for="client_name" class="col-sm-2 control-label">Name</label>
@@ -58,13 +58,21 @@
                 <div class="form-group">
                     <label for="order_type" class="col-sm-2 control-label">Order Type</label>
                     <div class="col-sm-10">
-                        <select name="order_type" id="order_type" v-model="selected_order_type" options="order_types" class="form-control"></select>
+                        <select name="order_type" id="order_type" v-model="selected_order_type" class="form-control">
+                            <option v-for="order_type in order_types" v-bind:value="order_type.value">
+                                {{ order_type.text }}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="company" class="col-sm-2 control-label">Company</label>
                     <div class="col-sm-10">
-                        <select name="company" id="company" v-model="selected_company" options="companies" class="form-control"></select>
+                        <select name="company" id="company" v-model="selected_company" class="form-control">
+                            <option v-for="company in companies" v-bind:value="company.value">
+                                {{ company.text }}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -75,7 +83,7 @@
                 </div>
                 <div class="form-group text-right">
                     <div class="col-sm-12">
-                        <button type="submit" class="btn btn-default" @submit="submitOrder">Submit</button>
+                        <button type="submit" class="btn btn-default">Submit</button>
                     </div>
                 </div>
             </form>
@@ -83,7 +91,7 @@
     </div>
 
     <div class="container" style="margin-top: 3em;">
-        <form class="form-inline col-xs-12 text-center" id="orders_form">
+        <form  @submit="getOrders" class="form-inline col-xs-12 text-center" id="orders_form">
             <div class="form-group">
                 <label for="client_name_list" class="col-sm-2 control-label">Name</label>
                 <div class="col-sm-10">
@@ -98,7 +106,7 @@
             </div>
             <div class="form-group text-right">
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-default" @submit="getOrders">Get Orders</button>
+                    <button type="submit" class="btn btn-default">Get Orders</button>
                 </div>
             </div>
         </form>
@@ -116,7 +124,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="order in orders_from_user"></tr>
+                <tr v-for="order in orders">
+                    <td>{{ order.type }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.value }}</td>
+                    <td>{{ order.company }}</td>
+                    <td>{{ order.request_date }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.execution_date }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
