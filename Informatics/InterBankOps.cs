@@ -13,7 +13,7 @@ namespace InterBank
     {
         SupervisorOpsClient supervisor = new SupervisorOpsClient();
         SQLiteConnection conn;
-        public bool stockOnline = false;
+        public static bool stockOnline = false;
 
 
         public InterBankOps()
