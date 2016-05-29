@@ -38,7 +38,7 @@ namespace Supervisor
             this.company_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.request_date_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.value_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status_column = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.action_column = new System.Windows.Forms.DataGridViewButtonColumn();
             this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ordersList)).BeginInit();
@@ -65,6 +65,7 @@ namespace Supervisor
             this.ordersList.Size = new System.Drawing.Size(950, 383);
             this.ordersList.TabIndex = 0;
             this.ordersList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ordersList_CellContentClick);
+            this.ordersList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.ordersList_dataError);
             // 
             // id_column
             // 
@@ -110,9 +111,12 @@ namespace Supervisor
             // status_column
             // 
             this.status_column.HeaderText = "Status";
+            this.status_column.Items.AddRange(new object[] {
+            "Request",
+            "Accepted",
+            "Refused"});
             this.status_column.Name = "status_column";
             this.status_column.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.status_column.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // action_column
             // 
@@ -152,6 +156,7 @@ namespace Supervisor
         #endregion
 
         private System.Windows.Forms.DataGridView ordersList;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn client_id_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn type_column;
@@ -159,8 +164,7 @@ namespace Supervisor
         private System.Windows.Forms.DataGridViewTextBoxColumn company_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn request_date_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn value_column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status_column;
+        private System.Windows.Forms.DataGridViewComboBoxColumn status_column;
         private System.Windows.Forms.DataGridViewButtonColumn action_column;
-        private System.Windows.Forms.Button button1;
     }
 }

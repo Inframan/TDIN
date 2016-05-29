@@ -120,6 +120,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ISupervisorOps.datasource" />
+    <None Include="Properties\DataSources\MainWindow.datasource" />
+    <None Include="Properties\DataSources\Program.datasource" />
+    <None Include="Properties\DataSources\Supervisor.InterBank.IInterBankOps.datasource" />
+    <None Include="Properties\DataSources\Supervisor.InterBank.IInterBankOpsChannel.datasource" />
+    <None Include="Properties\DataSources\Supervisor.InterBank.InterBankOpsClient.datasource" />
+    <None Include="Properties\DataSources\SupervisorOps.datasource" />
     <None Include="Service References\InterBank\InterBankOps.wsdl" />
     <None Include="Service References\InterBank\item.xsd">
       <SubType>Designer</SubType>

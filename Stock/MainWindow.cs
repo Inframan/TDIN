@@ -68,7 +68,10 @@ namespace Supervisor
                 var status = row.Cells[7].Value;
                 var date = DateTime.Now;
 
-                SetOrderStatus(row, Convert.ToInt16(client_id), Convert.ToInt16(order_id), value.ToString(), status.ToString(), date);
+                if((status.ToString() == "Accepted" && Convert.ToInt16(value) > 0) || status.ToString() == "Refused")
+                    SetOrderStatus(row, Convert.ToInt16(client_id), Convert.ToInt16(order_id), value.ToString(), status.ToString(), date);
+                else
+                    MessageBox.Show("Value or Status not allowed!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -114,13 +117,18 @@ namespace Supervisor
 
                 while (reader.Read())
                 {
-                    var combobox = new DataGridViewComboBoxCell();
-                    /*combobox.Items.Insert(0, reader["execution_status"].ToString());
-                    combobox.Items.Insert(1, "Accepted");
-                    combobox.Items.Insert(2, "Refused");*/
-                    // combobox.Value = combobox.ValueMember;
+                    ordersList.Rows.Add();
+                    var i = ordersList.Rows.Count - 1;
 
-                    ordersList.Rows.Add(reader["id"].ToString(), reader["client_id"].ToString(), reader["order_type"].ToString(), reader["quantity"].ToString(), reader["company_name"].ToString(), reader["request_date"].ToString(), "0", reader["execution_status"].ToString(), "Submit");
+                    ordersList.Rows[i].Cells[0].Value = reader["id"].ToString();
+                    ordersList.Rows[i].Cells[1].Value = reader["client_id"].ToString();
+                    ordersList.Rows[i].Cells[2].Value = reader["order_type"].ToString();
+                    ordersList.Rows[i].Cells[3].Value = reader["quantity"].ToString();
+                    ordersList.Rows[i].Cells[4].Value = reader["company_name"].ToString();
+                    ordersList.Rows[i].Cells[5].Value = reader["request_date"].ToString();
+                    ordersList.Rows[i].Cells[6].Value = "0";
+                    //(DataGridViewComboBoxCell)ordersList.Rows[i].Cells[7].
+                    ordersList.Rows[i].Cells[8].Value = "Submit";
                 }
             }
             finally
@@ -179,6 +187,11 @@ namespace Supervisor
         private void refreshTable(object sender, EventArgs e)
         {
             UpdateOrdersList();
+        }
+
+        private void ordersList_dataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
         }
     }
 }
